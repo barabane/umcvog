@@ -43,5 +43,14 @@ class DB:
     def get_video(self, title):
         return self.__session.execute(select(Video).where(Video.title.contains(f"%{title}%"))).scalars().all()
 
+    def get_video_by_id(self, id):
+        return self.__session.get(Video, id)
+
+    def get_videos_qntity(self):
+        return len(self.__session.scalars(select(Video)).all())
+
+    def get_videos(self, offset: int = 1, limit: int = 10):
+        return self.__session.scalars(select(Video).offset((offset - 1) * limit).limit(limit)).all()
+
 
 db = DB()
