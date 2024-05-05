@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 
 from aiogram import types
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, case
 from sqlalchemy.orm import sessionmaker
 from .models import Video, User, Base
 
@@ -50,7 +50,9 @@ class DB:
         return len(self.__session.scalars(select(Video)).all())
 
     def get_videos(self, offset: int = 1, limit: int = 10):
-        return self.__session.scalars(select(Video).offset((offset - 1) * limit).limit(limit)).all()
+        return self.__session.query(Video).order_by(
+            case((Video.title.regexp_match("^[0-9]"), 2), else_=1), Video.title
+        ).offset((offset - 1) * limit).limit(limit).all()
 
 
 db = DB()
