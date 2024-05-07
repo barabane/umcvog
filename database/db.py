@@ -41,7 +41,7 @@ class DB:
         self.__session.commit()
 
     def get_video(self, title):
-        return self.__session.execute(select(Video).where(Video.title.contains(f"%{title}%"))).scalars().all()
+        return self.__session.execute(select(Video).where(Video.title.like(f"{title}%"))).scalars().all()
 
     def get_video_by_id(self, id):
         return self.__session.get(Video, id)
