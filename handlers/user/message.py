@@ -1,9 +1,11 @@
 from aiogram import types
 from database import db
 from fuzzywuzzy import fuzz
+from loguru import logger
 
 
 async def title_handler(msg: types.Message):
+    logger.info(f"User {msg.from_user.id} searching for {msg.text}")
     videos = db.get_video(msg.text)
 
     if videos == []:
