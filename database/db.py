@@ -1,19 +1,15 @@
-import os
-from dotenv import load_dotenv
-
 from aiogram import types
 from sqlalchemy import create_engine, select, case
 from sqlalchemy.orm import sessionmaker
 from .models import Video, User, Base
 from loguru import logger
-
-load_dotenv()
+from settings import DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME
 
 
 class DB:
     def __init__(self):
         self.__engine = create_engine(
-            f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}?charset=utf8mb4")
+            f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}?charset=utf8mb4")
         self.__session = sessionmaker(bind=self.__engine)()
         self.__metadata = Base.metadata
         self.__metadata.create_all(bind=self.__engine)

@@ -1,16 +1,13 @@
-import os
 import asyncio
-from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 from handlers import user_router, admin_router
 from loguru import logger
+from settings import TOKEN
 
 logger.add('logs/log_{time}.txt', rotation="12:00",
            format="{time} {level} {message}", compression="zip")
 
-load_dotenv()
-
-bot = Bot(token=os.getenv('TOKEN'))
+bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 

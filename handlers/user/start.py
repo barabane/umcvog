@@ -1,13 +1,10 @@
-import os
-from dotenv import load_dotenv
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 from database.models.User import User
 from states import UserState
 from database import db
 from keyboards import dictionary_kb
-
-load_dotenv()
+from settings import PASS
 
 
 async def start_handler(msg: types.Message, state: FSMContext):
@@ -23,7 +20,7 @@ async def start_handler(msg: types.Message, state: FSMContext):
 
 
 async def get_pass(msg: types.Message, state: FSMContext):
-    if msg.text != os.getenv('PASS'):
+    if msg.text != PASS:
         return await msg.answer("Неправильный пароль")
     await msg.answer("Добро пожаловать!")
     db.reg_user(msg.from_user, "user")
