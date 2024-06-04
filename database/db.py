@@ -15,7 +15,7 @@ class DB:
         self.__metadata.create_all(bind=self.__engine)
 
     @logger.catch
-    def get_user(self, id):
+    def get_user(self, id: int):
         return self.__session.get(User, id)
 
     @logger.catch

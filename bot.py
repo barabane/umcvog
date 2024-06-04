@@ -15,6 +15,7 @@ dp = Dispatcher()
 async def main():
     dp.include_routers(user_router, admin_router)
     logger.info("bot start polling")
+    await bot.delete_webhook(drop_pending_updates=False)
     await dp.start_polling(bot)
 
 
