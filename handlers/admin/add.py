@@ -31,7 +31,8 @@ async def set_video(msg: types.Message, state: FSMContext):
 async def set_video_document(msg: types.Message, state: FSMContext):
     await state.set_state(AdminState.video)
     data = await state.get_data()
-    video = db.set_video(msg.video.file_id, data['title'])
+    video = db.set_video(
+        msg.video.file_id if msg.video else msg.document.file_id, data['title'])
     logger.info(f"Admin {msg.from_user.id} set a video {video.id}")
     await msg.answer("Видео успешно добавлено!")
     await state.clear()
