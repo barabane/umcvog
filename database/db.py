@@ -9,7 +9,7 @@ from settings import DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME
 class DB:
     def __init__(self):
         self.__engine = create_engine(
-            f"mysql+pymysql://{DB_USER}:{DB_PASS}@{'147.45.140.132'}:{DB_PORT}/{DB_NAME}?charset=utf8mb4")
+            f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}?charset=utf8mb4")
         self.__session = sessionmaker(bind=self.__engine)()
         self.__metadata = Base.metadata
         self.__metadata.create_all(bind=self.__engine)
