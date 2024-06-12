@@ -11,7 +11,8 @@ router = Router()
 router.message.register(admin_handler, AdminFilter(), Command("admin"))
 router.message.register(add_video, AdminFilter(), Command("add"))
 router.message.register(set_title, StateFilter(AdminState.add))
-router.message.register(set_video, StateFilter(AdminState.title), F.video)
+router.message.register(set_video, StateFilter(
+    AdminState.title), F.video)
 router.message.register(set_video_document, StateFilter(
     AdminState.title), F.document.mime_type == "video/mp4")
 router.message.register(admin_exit, Command("exit"), AdminFilter())

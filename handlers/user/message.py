@@ -1,12 +1,12 @@
 from aiogram import types
-from database import db
 from fuzzywuzzy import fuzz
 from loguru import logger
+from handlers.user.dao import UserDAO
 
 
 async def title_handler(msg: types.Message):
     logger.info(f"User {msg.from_user.id} searching for {msg.text}")
-    videos = db.get_video(msg.text)
+    videos = await UserDAO.find_words_like(msg.text)
 
     if videos == []:
         return await msg.answer("Ничего не найдено 😔 Попробуйте еще раз")

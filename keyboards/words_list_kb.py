@@ -1,10 +1,8 @@
-from typing import Sequence
 from aiogram import types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from database.models import Video
 
 
-def words_list(videos: Sequence[Video], position, videos_qnt):
+def words_list(videos, position, videos_qnt):
     builder = InlineKeyboardBuilder()
 
     for video in videos:
